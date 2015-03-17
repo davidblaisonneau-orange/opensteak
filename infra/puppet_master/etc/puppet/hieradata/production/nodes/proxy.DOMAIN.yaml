@@ -1,22 +1,30 @@
 nginx::nginx_vhosts:
-  "keystone.stack.%{hiera('domain')}":
+  "keystone.%{hiera('stack::domain')}":
      listen_port: 5000
-     proxy: "http://keystone.stack.%{hiera('domain')}:5000"
-  "glance.stack.%{hiera('domain')}":
+     proxy: "http://keystone.%{hiera('stack::domain')}:5000"
+  "glance.%{hiera('stack::domain')}":
      listen_port: 9292
-     proxy: "http://glance.stack.%{hiera('domain')}:9292"
-  "nova.stack.%{hiera('domain')}":
+     proxy: "http://glance.%{hiera('stack::domain')}:9292"
+  "nova.%{hiera('stack::domain')}":
      listen_port: 8774
-     proxy: "http://nova.stack.%{hiera('domain')}:8774"
-  "neutron.stack.%{hiera('domain')}":
+     proxy: "http://nova.%{hiera('stack::domain')}:8774"
+  "neutron.%{hiera('stack::domain')}":
      listen_port: 9696
-     proxy: "http://neutron.stack.%{hiera('domain')}:9696"
-  "cinder.stack.%{hiera('domain')}":
+     proxy: "http://neutron.%{hiera('stack::domain')}:9696"
+  "cinder.%{hiera('stack::domain')}":
      listen_port: 8776
-     proxy: "http://cinder.stack.%{hiera('domain')}:8776"
-  "stack.%{hiera('domain')}":
+     proxy: "http://cinder.%{hiera('stack::domain')}:8776"
+  "%{hiera('stack::domain')}":
      listen_port: 80
+     proxy: "http://horizon.%{hiera('stack::domain')}"
+  "%{hiera('stack::domain')}":
+     listen_port: 443
+     ssl: true
+     ssl_cert: "/var/lib/puppet/ssl/certs/proxy.stack.%{hiera('domain')}.pem"
+     ssl_key: "/var/lib/puppet/ssl/private_keys/proxy.stack.%{hiera('domain')}.pem"
      proxy: "http://horizon.stack.%{hiera('domain')}"
+     proxy_redirect: "http://stack.opensteak.fr /"
+
 
 classes:
   - nginx
