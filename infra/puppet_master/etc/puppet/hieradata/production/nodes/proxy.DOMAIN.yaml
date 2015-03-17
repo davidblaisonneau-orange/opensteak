@@ -14,9 +14,17 @@ nginx::nginx_vhosts:
   "cinder.%{hiera('stack::domain')}":
      listen_port: 8776
      proxy: "http://cinder.%{hiera('stack::domain')}:8776"
-  "stack.%{hiera('stack::domain')}":
+  "%{hiera('stack::domain')}":
      listen_port: 80
      proxy: "http://horizon.%{hiera('stack::domain')}"
+  "%{hiera('stack::domain')}":
+     listen_port: 443
+     ssl: true
+     ssl_cert: "/var/lib/puppet/ssl/certs/proxy.stack.%{hiera('domain')}.pem"
+     ssl_key: "/var/lib/puppet/ssl/private_keys/proxy.stack.%{hiera('domain')}.pem"
+     proxy: "http://horizon.stack.%{hiera('domain')}"
+     proxy_redirect: "http://stack.opensteak.fr /"
+
 
 classes:
   - nginx
