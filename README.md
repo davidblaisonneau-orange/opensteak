@@ -1,4 +1,4 @@
-# Opensteak Get Starting Installation
+# Openstack Get Starting Installation
 
 [![Join the chat at https://gitter.im/Orange-OpenSource/opnfv](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Orange-OpenSource/opnfv?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
